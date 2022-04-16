@@ -33,7 +33,7 @@ void merge(int arr[], int low, int mid, int high)
 
     int aptr = 0;
     int bptr = 0;
-    int res = 0;
+    int res = low;
     while (aptr < n1 && bptr < n2)
     {
         if (left[aptr] < right[bptr])
