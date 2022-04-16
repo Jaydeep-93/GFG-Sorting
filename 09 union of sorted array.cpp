@@ -18,43 +18,43 @@ void unionArray(int a[], int n1, int b[], int n2)
     int bptr = 0;
     while (aptr < n1 && bptr < n2)
     {
-        if (a[aptr] == b[bptr])
+        if (aptr > 0 && a[aptr] == a[aptr - 1])
+        {
+            aptr++;
+            continue;
+        }
+        else if (bptr > 0 && b[bptr] == b[bptr - 1])
+        {
+            bptr++;
+            continue;
+        }
+        else if (a[aptr] == b[bptr])
         {
             cout << a[aptr] << " ";
-            aptr = next_distinct(a, n1, a[aptr]);
-            bptr = next_distinct(b, n2, b[bptr]);
+            aptr++;
+            bptr++;
         }
         else if (a[aptr] < b[bptr])
         {
-            cout << a[aptr] << " ";
-            aptr = next_distinct(a, n1, a[aptr]);
+            cout << a[aptr++] << " ";
         }
-        else
+        else if (a[aptr] > b[bptr])
         {
             cout << b[bptr++] << " ";
-            bptr = next_distinct(b, n2, b[bptr]);
         }
     }
     while (aptr < n1)
     {
-        cout << a[aptr] << " ";
-        aptr = next_distinct(a, n1, a[aptr]);
+        if (aptr > 0 && a[aptr] != a[aptr - 1])
+            cout << a[aptr] << " ";
+        aptr++;
     }
     while (bptr < n2)
     {
-        cout << b[bptr++] << " ";
-        bptr = next_distinct(b, n2, b[bptr]);
+        if (bptr > 0 && b[bptr] != b[bptr - 1])
+            cout << b[bptr++] << " ";
+        bptr++;
     }
     cout << endl;
 }
 
-int next_distinct(int arr[], int size, int ele)
-{
-    int index = -1;
-    for (int i = 0; i < size; i++)
-    {
-        if (arr[i] == ele)
-            index = i + 1;
-    }
-    return index;
-}
