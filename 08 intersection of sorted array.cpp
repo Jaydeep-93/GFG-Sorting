@@ -2,7 +2,6 @@
 using namespace std;
 
 void intersection(int a[], int n1, int b[], int n2);
-int next_distinct(int arr[], int size, int ele);
 
 int main() {
     int a[] = {3, 3, 5, 10, 10, 15, 15, 20, 20, 20};
@@ -15,28 +14,23 @@ void intersection(int a[], int n1, int b[], int n2) {
     int aptr = 0;
     int bptr = 0;
     while (aptr < n1 && bptr < n2) {
+        if (aptr > 0 && a[aptr] == a[aptr-1])
+            aptr++;
+        if (bptr > 0 && b[bptr] == b[bptr-1])
+            bptr++;
         if (a[aptr] == b[bptr])
         {
             cout << a[aptr] << " ";
-            aptr = ::next_distinct(a, n1, a[aptr]);
-            bptr = ::next_distinct(b, n2, b[bptr]);
+            aptr++;
+            bptr++;
         }
         else if (a[aptr] < b[bptr]) {
             aptr++;
-        } else { // a[aptr] > b[bptr]
+        }
+        else if (a[aptr] > b[bptr])
+        {
             bptr++;
         }
     }
     cout << endl;
-}
-
-int next_distinct(int arr[], int size, int ele)
-{
-    int last = -1;
-    for (int i = 0; i < size; i++)
-    {
-        if (arr[i] == ele)
-            last = i + 1;
-    }
-    return last;
 }
